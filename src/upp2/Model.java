@@ -12,18 +12,14 @@ public class Model extends Observable {
         observers = new ArrayList<>();
     }
 
-    public void notifyObservers() {
-        for (Observer o : observers) {
-            o.update(this, on);
-        }
+    public void toggle(){
+        on=!on;
+        setChanged();
+        notifyObservers(on);
     }
 
-    public void addObserver(Observer o) {
-        observers.add(o);
+    public boolean isOn(){
+        return on;
     }
 
-    public void setChanged() {
-        on = !on;
-        notifyObservers();
-    }
 }

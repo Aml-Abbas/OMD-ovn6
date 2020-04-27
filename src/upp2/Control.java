@@ -11,10 +11,10 @@ public class Control implements ActionListener {
         view.addActionListener(this);
     }
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        model.setChanged();
+        model.toggle();
     }
-
 
 }

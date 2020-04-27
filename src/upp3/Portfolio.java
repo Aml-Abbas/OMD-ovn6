@@ -10,15 +10,17 @@ public class Portfolio extends Observable {
 
     public Portfolio(double yieldLimit) {
         this.yieldLimit = yieldLimit;
+        this.buyValue=0;
         this.stocks = new LinkedList<>();
     }
 
     public void add(Stock stock) {
         stocks.add(stock);
         buyValue += stock.value();
-        stock.addObserver((obs, obj) -> {
-            check();
-        });
+            if (currentYield() < yieldLimit) {
+                setChanged();
+                notifyObservers(buyValue);
+            }
     }
 
     public double currentYield() {
@@ -27,12 +29,5 @@ public class Portfolio extends Observable {
                 .mapToDouble(s -> s.value())
                 .sum();
         return value / buyValue;
-    }
-
-    private void check() {
-        if (currentYield() < yieldLimit) {
-            setChanged();
-            notifyObservers();
-        }
     }
 }

@@ -8,7 +8,7 @@ public class Stock extends Observable {
     public void update(double value){
         this.value= value;
         setChanged() ;
-        notifyObservers();
+        notifyObservers(value);
     }
     public double value(){
         return value;
